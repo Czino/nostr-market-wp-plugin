@@ -5,7 +5,7 @@ add_shortcode("product_carousel",function($args) {
     $product_url = isset($options['nostr_market_field_product_url']) ? $options['nostr_market_field_product_url'] : '';
     $limit = isset($args['limit']) ? $args['limit'] : '';
     $show_price = isset($options['nostr_market_field_show_prices']) ? 'true' : 'false';
-    $relays = isset($options['nostr_market_field_relays']) ? $options['nostr_market_field_relays'] : 'wss://nostr-pub.wellorder.net';
+    $relays = isset($options['nostr_market_field_relays']) ? str_replace(array("\r\n", "\n", "\r"), ',', $options['nostr_market_field_relays']) : 'wss://nostr-pub.wellorder.net';
     $resize_images = isset($options['nostr_market_field_resize_images']);
     return '<div
         class="nostr-product-carousel"

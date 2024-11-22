@@ -5,13 +5,13 @@ function nostr_market_settings_init() {
 
     add_settings_section(
         'nostr_market_section_options',
-        __('Nostr market options', 'nostr_market'), 'nostr_market_section_options_callback',
+        __('Nostr market options', 'nostr-market-include'), 'nostr_market_section_options_callback',
         'nostr_market'
     );
 
     add_settings_field(
         'nostr_market_field_pubkey',
-        __('Pubkey', 'nostr_market'),
+        __('Pubkey', 'nostr-market-include'),
         'nostr_market_field_pubkey_cb',
         'nostr_market',
         'nostr_market_section_options',
@@ -20,7 +20,7 @@ function nostr_market_settings_init() {
 
     add_settings_field(
         'nostr_market_field_show_prices',
-        __('Show prices', 'nostr_market'),
+        __('Show prices', 'nostr-market-include'),
         'nostr_market_field_show_prices_cb',
         'nostr_market',
         'nostr_market_section_options',
@@ -29,7 +29,7 @@ function nostr_market_settings_init() {
 
     add_settings_field(
         'nostr_market_field_product_url',
-        __('Product URL', 'nostr_market'),
+        __('Product URL', 'nostr-market-include'),
         'nostr_market_field_product_url_cb',
         'nostr_market',
         'nostr_market_section_options',
@@ -38,7 +38,7 @@ function nostr_market_settings_init() {
 
     add_settings_field(
         'nostr_market_field_relays',
-        __('Relays', 'nostr_market'),
+        __('Relays', 'nostr-market-include'),
         'nostr_market_field_relays_cb',
         'nostr_market',
         'nostr_market_section_options',
@@ -47,7 +47,7 @@ function nostr_market_settings_init() {
 
     add_settings_field(
         'nostr_market_field_resize_images',
-        __('Resize images', 'nostr_market'),
+        __('Resize images', 'nostr-market-include'),
         'nostr_market_field_resize_images_cb',
         'nostr_market',
         'nostr_market_section_options',
@@ -83,11 +83,11 @@ function nostr_market_field_pubkey_cb( $args ) {
     ?>
     <input type="text"
         style="width: 100%;"
-        name="nostr_market_options[<? echo esc_attr($args['label_for']) ?>]"
-        placeholder="<? esc_html_e('fd511d...', 'nostr_market' ) ?>"
-        value="<? echo isset($options[$args['label_for']]) ? $options[$args['label_for']] : '' ?>" />
+        name="nostr_market_options[<?php echo esc_attr($args['label_for']) ?>]"
+        placeholder="<?php esc_html_e('fd511d...', 'nostr-market-include' ) ?>"
+        value="<?php echo isset($options[$args['label_for']]) ? esc_attr($options[$args['label_for']]) : '' ?>" />
     <p>
-        <? esc_html_e('Your stall public key (not to be confused with npub)', 'nostr_market') ?>
+        <?php esc_html_e('Your stall public key (not to be confused with npub)', 'nostr-market-include') ?>
     </p>
     <?php
 }
@@ -96,11 +96,11 @@ function nostr_market_field_product_url_cb( $args ) {
     ?>
     <input type="text"
         style="width: 100%;"
-        name="nostr_market_options[<? echo esc_attr($args['label_for']) ?>]"
-        placeholder="<? esc_html_e('path/to/$PRODUCTNAME/$PRODUCTID', 'nostr_market' ) ?>"
-        value="<? echo isset($options[$args['label_for']]) ? $options[$args['label_for']] : '' ?>" />
+        name="nostr_market_options[<?php echo esc_attr($args['label_for']) ?>]"
+        placeholder="<?php esc_html_e('path/to/$PRODUCTNAME/$PRODUCTID', 'nostr-market-include' ) ?>"
+        value="<?php echo isset($options[$args['label_for']]) ? esc_attr($options[$args['label_for']]) : '' ?>" />
     <p>
-        <? esc_html_e('A pattern for your product URL. Your can use $PRODUCTNAME as a placeholder for the product name and $PRODUCTID (required) as a placeholder for the product id.', 'nostr_market') ?>
+        <?php esc_html_e('A pattern for your product URL. Your can use $PRODUCTNAME as a placeholder for the product name and $PRODUCTID (required) as a placeholder for the product id.', 'nostr-market-include') ?>
     </p>
     <?php
 }
@@ -108,16 +108,16 @@ function nostr_market_field_show_prices_cb( $args ) {
     $options = get_option('nostr_market_options');
     ?>
     <input type="checkbox"
-        name="nostr_market_options[<? echo esc_attr($args['label_for']) ?>]"
-        <? echo isset($options[$args['label_for']]) && $options[$args['label_for']] === 'on' ? 'checked="checked"' : '' ?> />
+        name="nostr_market_options[<?php echo esc_attr($args['label_for']) ?>]"
+        <?php echo isset($options[$args['label_for']]) && $options[$args['label_for']] === 'on' ? 'checked="checked"' : '' ?> />
     <?php
 }
 function nostr_market_field_resize_images_cb( $args ) {
     $options = get_option('nostr_market_options');
     ?>
     <input type="checkbox"
-        name="nostr_market_options[<? echo esc_attr($args['label_for']) ?>]"
-        <? echo isset($options[$args['label_for']]) && $options[$args['label_for']] === 'on' ? 'checked="checked"' : '' ?> />
+        name="nostr_market_options[<?php echo esc_attr($args['label_for']) ?>]"
+        <?php echo isset($options[$args['label_for']]) && $options[$args['label_for']] === 'on' ? 'checked="checked"' : '' ?> />
         <p>Because images configured on nostr products are often static, this setting allows to resize them on demand, which is useful for displaying smaller images on product thumbnails so users do not have to request the full resolution image.</p>
         <p>Currently only supports images uploaded through Plebeian Market.</p>
         <p>If you enable this, make sure your server can handle to resizing images on demand.</p>
@@ -129,10 +129,10 @@ function nostr_market_field_relays_cb( $args ) {
     <textarea
         style="width: 100%;"
         rows="4"
-        name="nostr_market_options[<? echo esc_attr($args['label_for']) ?>]"
-        placeholder="<? esc_html_e('wss://nostr-pub.wellorder.net', 'nostr_market' ) ?>"><? echo isset($options[$args['label_for']]) ? $options[$args['label_for']] : '' ?></textarea>
+        name="nostr_market_options[<?php echo esc_attr($args['label_for']) ?>]"
+        placeholder="<?php esc_html_e('wss://nostr-pub.wellorder.net', 'nostr-market-include' ) ?>"><?php echo isset($options[$args['label_for']]) ? esc_attr($options[$args['label_for']]) : '' ?></textarea>
     <p>
-        <? esc_html_e('Your custom relay list. Put each relay on a new line', 'nostr_market') ?>
+        <?php esc_html_e('Your custom relay list. Put each relay on a new line', 'nostr-market-include') ?>
     </p>
     <?php
 }
@@ -150,12 +150,12 @@ add_action('admin_menu', 'nostr_market_settings');
 
 
 function nostr_market_settings_html() {
-    if (!current_user_can( 'manage_options')) {
+    if (!current_user_can('manage_options')) {
         return;
     }
 
     if (isset($_GET['settings-updated'])) {
-        add_settings_error('nostr_market_messages', 'nostr_market_message', __('Settings Saved', 'nostr_market'), 'updated');
+        add_settings_error('nostr_market_messages', 'nostr_market_message', __('Settings Saved', 'nostr-market-include'), 'updated');
     }
 
     settings_errors('nostr_market_messages');

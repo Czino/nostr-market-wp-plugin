@@ -32,7 +32,7 @@ function resize_image_callback($request) {
     if ($cached_image) {
         header('Content-Type: ' . $cached_image['type']);
         header('X-Cache-Hit: 1');
-        echo $cached_image['data'];
+        echo esc_attr($cached_image['data']);
     }
 
     $response = wp_remote_get($url);
@@ -97,7 +97,7 @@ function resize_image_callback($request) {
     imagedestroy($resized_image);
 
     header('Content-Type: ' . $image_type);
-    echo $image_data_output;
+    echo esc_attr($image_data_output);
     exit;
 }
 
