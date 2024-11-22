@@ -2,6 +2,8 @@
 /**
  * Plugin Name: Nostr Market Include
  * Description: Include any nostr market stall.
+ * Version: 1.0.0
+ * License: GPLv3
  */
 
 if (! defined('ABSPATH') ) {
